@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql
+    restart: always
+    volumes:
+      - /Users/makotol/Documents/volumenes/mysql8-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: '1234567890'
+    ports:
+      - '33060:3306'
+  redis:
+    image: redis
+  spring-redis:
+    image: spring-redis
+    environment:
+      - DEBUG=true
+    ports: 
+      - 8080:8080
+      - 5105:5005
+    depends_on:
+      - redis
+      - mysql
+    restart: on-failure:3
+
+networks:
+  default:
+    external:
+      name: red
