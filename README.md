@@ -339,14 +339,14 @@ networks:
 En una terminal procedemos a ejecutar el siguiente comando para crear la red necesaria para la comunicación entre los diferentes servicios “docker network create red”.
 
 
+
 Una vez teniendo todos nuestros archivos preparados y creada la imagen de nuestra aplicación spring y la red en docker procederemos a abrir una terminal y posicionarnos en la carpeta raíz del proyecto, ejecutando la siguiente sentencia “docker-compose up -d” para inicializar todos los contenedores definidos en el docker-compose.yml y ya podremos interactuar con la aplicación.
 
 
 Se realizaron algunas request para la creación de algunos usuarios.
 
 
-![captura de postman donde se realiza la cracion de un usuario]
-(https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%201.png)
+![captura de postman donde se realiza la cracion de un usuario](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%201.png)
 
 
 
@@ -354,7 +354,7 @@ Se realizaron algunas request para la creación de algunos usuarios.
 En terminal ejecutamos el siguiente comando “docker excec –it redis-spring-redis-1 bash” de esta forma logramos acceder al bash del contenedor donde esta alojado redis e introducimos la siguiente sentencia “redis-cli” para acceder al cliente de redis, una vez dentro del cliente ejecutamos la sentencia “keys *” para ver la cantidad de claves de nuestros objetos guardados en redis, de momento no tenemos ningún objeto almacenado en redis.
 
 
-
+![captura donde se consulta el listado vacio de keys en redis](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%202.png)
 
 
 
@@ -362,6 +362,7 @@ En terminal ejecutamos el siguiente comando “docker excec –it redis-spring-r
 Procedemos a hacer el llamado del endpoint getById.
 
 
+![captura de postman donde se utiliza el endpoint de consulta](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%203.png)
 
 
 
@@ -373,6 +374,7 @@ Primero utilizamos el comando “keys *” para ver cual clave guardo asociada a
 
 
 
+![captura donde se consulta el listado de keys y el elemento almacenado](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%204.png)
 
 
 
