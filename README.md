@@ -345,7 +345,8 @@ Una vez teniendo todos nuestros archivos preparados y creada la imagen de nuestr
 Se realizaron algunas request para la creación de algunos usuarios.
 
 
-
+![captura de postman donde se realiza la cracion de un usuario]
+(https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%201.png)
 
 
 
