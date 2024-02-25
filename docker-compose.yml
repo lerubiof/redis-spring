@@ -12,6 +12,10 @@ services:
       - '33060:3306'
   redis:
     image: redis
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
   spring-redis:
     image: spring-redis
     environment:

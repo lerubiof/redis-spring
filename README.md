@@ -1,10 +1,10 @@
 ## Objetivo
 
-En esta guiá veremos como conectar la base de datos en cache “*Redis*” con el popular framework de desarrollo para el lenguaje java “*Spring*”, elaboraremos paso a paso un pequeño proyecto de ejemplo utilizando diversas tecnologías como docker, docker-compose, redis, java, spring y mysql.
+En esta guiá veremos como conectar la base de datos en cache “*Redis*” con el popular framework de desarrollo para el lenguaje Java “*Spring*”, elaboraremos paso a paso un pequeño proyecto de ejemplo utilizando diversas tecnologías como Docker, Docker Compose, Redis, Java, Spring y MySQL.
 
 
 
-En este pequeño proyecto realizaremos una aplicación java-spring que nos permitirá registrar usuarios en una base de datos mysql y al consultarlos almacenar los usuarios en redis para agilizar las próximas consultas de aquellos usuarios ya consultados, crearemos la tabla a través de migraciones con flyway y deployaremos nuestra aplicación junto a mysql y redis en contenedores utilizando docker y docker-compose.
+En este pequeño proyecto realizaremos una aplicación Java-Spring que nos permitirá registrar usuarios en una base de datos MySQL y al consultarlos almacenar los usuarios en Redis para agilizar las próximas consultas de aquellos usuarios ya consultados, crearemos la tabla a través de migraciones con Flyway y deployaremos nuestra aplicación junto a MySQL y Redis en contenedores utilizando Docker y Docker Compose.
 
 
 
@@ -16,27 +16,27 @@ Antes de empezar con nuestra guiá se mostrarán una definición de cada tecnolo
 
 
 
-**Redis**: es un almacén de estructura de datos de valores de clave en memoria rápido y de código abierto.
+**Redis**: Es un almacén de estructura de datos de valores de clave en memoria rápido y de código abierto.
 
 
 
-**MySQL**:es el sistema de gestión de bases de datos relacional más extendido en la actualidad al estar basada en código abierto.
+**MySQL**: Es el sistema de gestión de bases de datos relacional más extendido en la actualidad al estar basada en código abierto.
 
 
 
-**Docker**: es la tecnología de organización en contenedores que posibilita la creación y el uso de los contenedores de linux.
+**Docker**: Es la tecnología de organización en contenedores que posibilita la creación y el uso de los contenedores de linux.
 
 
 
-**Docker Compose**: es una herramienta para definir y ejecutar aplicaciones de Docker de varios contenedores utilizando archivos YML.
+**Docker Compose**: Es una herramienta para definir y ejecutar aplicaciones de Docker de varios contenedores utilizando archivos YML.
 
 
 
-**Java**: es un lenguaje de programación ampliamente utilizado para codificar aplicaciones
+**Java**: Es un lenguaje de programación ampliamente utilizado para codificar aplicaciones
 
 
 
-**Spring Framework**: es un framework de código abierto que da soporte para el desarrollo de aplicaciones y páginas webs basadas en Java. Se trata de uno de los entornos más populares y ayuda a los desarrolladores back-end a crear aplicaciones con un alto rendimiento empleando objetos de java sencillos.
+**Spring Framework**: Es un framework de código abierto que da soporte para el desarrollo de aplicaciones y páginas webs basadas en Java. Se trata de uno de los entornos más populares y ayuda a los desarrolladores back-end a crear aplicaciones con un alto rendimiento empleando objetos de java sencillos.
 
 
 
@@ -46,15 +46,20 @@ Antes de empezar con nuestra guiá se mostrarán una definición de cada tecnolo
 
 
 
-Como se menciono anteriormente, redis es una base de datos que se encuentra en memoria lo cual permite un rápido acceso a la información ahí almacenada, es simple y fácil de usar ya que nos permite guardar y extraer información de forma sencilla y flexible por la gran cantidad de tipos de datos que esta pone a nuestra disposición además de ser de código abierto con una enorme comunidad muy activa a su alrededor.
+Como se menciono anteriormente, Redis es una base de datos que se encuentra en memoria lo cual permite un rápido acceso a la información ahí almacenada, es simple y fácil de usar ya que nos permite guardar y extraer información de forma sencilla y flexible por la gran cantidad de tipos de datos que esta pone a nuestra disposición además de ser de código abierto con una enorme comunidad muy activa a su alrededor.
 
 
 
-Los aplicativos de redis son variados, estos van desde guardados de sesiones y configuraciones en aplicaciones web, desde salas de chats incluso streaming, sin embargo, el uso más frecuente que esta base de datos suele tener es para el almacenamiento y extracción de información muy constantemente solicitada disminuyendo la latencia de las peticiones aliviando la carga de servidores y gestores de base de datos relacionales y no relacionales.
+Las formas de usar Redis son variadas, estas van desde guardados de sesiones y configuraciones en aplicaciones web, desde salas de chats incluso streaming. Sin embargo, el uso más frecuente que esta base de datos suele tener es para el almacenamiento y extracción de información muy constantemente solicitada ya que disminuye la latencia de las peticiones aliviando la carga de servidores y gestores de base de datos.
+
+Destacamos las principales ventajas de Redis:
+
+- Menores tiempos de respuesta
+- Estructura de datos flexible
+- Simplicidad de uso
 
 
-
-A pesar de existir algunas alternativas a redis como por ejemplo memcached, esta tiene algunas desventajas ante redis.  Memcached nos permite almacenar solo string mientras que redis tiene una amplia variedad de estructuras de datos que nos ofrece para su utilización, memcached solo permite almacenar hasta 1 mb por cada dato, redis hasta 512 mb.
+A pesar de existir algunas alternativas a Redis como por ejemplo memcached, esta tiene algunas desventajas ante Redis. Memcached nos permite almacenar solo string mientras que Redis tiene una amplia variedad de estructuras de datos que nos ofrece para su utilización, Memcached solo permite almacenar hasta 1 mb por cada dato, Redis hasta 512 mb.
 
 
 
@@ -68,19 +73,19 @@ Una vez creado nuestro proyecto procederemos a incorporar las siguientes depende
 
 
 
-Las dos siguientes dependencias nos ayudaran a interactuar con redis en nuestra aplicacion
+Las dos siguientes dependencias nos ayudaran a interactuar con Redis en nuestra aplicacion
 ```
 implementation("redis.clients:jedis:5.1.0")
 implementation("org.springframework.data:spring-data-redis:3.2.2")
 ```
 
-Esta dependencia nos permitira realizar las migración de base de datos a través de la librería flyway
+Esta dependencia nos permitira realizar las migración de base de datos a través de la librería Flyway
 ```
 implementation("org.flywaydb:flyway-core:10.8.1")
 implementation("org.flywaydb:flyway-mysql:10.8.1")
 ```
 
-dentro de nuestro build.gradle incorporamos el plugin de flyway
+dentro de nuestro build.gradle incorporamos el plugin de Flyway
 ```
 id("org.flywaydb.flyway") version "10.8.1"
 ```
@@ -102,7 +107,7 @@ Una vez incorporadas procederemos a buildear nuestro gradle para que las depende
 
 ## Configuracion de properties
 
-Incorporamos las propiedades necesarias para las conexiones de redis, mysql y la configuración de flyway en el archivo application.properties
+Incorporamos las propiedades necesarias para las conexiones de Redis, MySQL y la configuración de Flyway en el archivo application.properties
 ```
 server.port=8080
 
@@ -128,7 +133,7 @@ spring.flyway.user=${user.database}
 spring.flyway.password=${password.database}
 ```
 
-Creacion de tabla usando flyway
+Creacion de tabla usando Flyway
 
 
 A continuación procedemos a crear la migración en la carpeta db dentro de resources la cual llamaremos “V20240216215100__INIT_DB.sql” que contendrá la sentencia sql para la creación de la tabla “users” que utilizaremos para guardar los usuarios que crearemos mas adelante, dicha migración se ejecutara al deployar la aplicación si dicha migración no ha sido ejecutada anteriormente.
@@ -146,8 +151,7 @@ create table users(
 ## Creación de clase de configuración para Redis
 
 
-
-Una vez especificadas las propiedades anteriores y la migración procedemos a crear la clase de configuración de redis
+Una vez especificadas las propiedades anteriores y la migración procedemos a crear la clase de configuración de Redis
 
 ```
 @EnableCaching
@@ -180,7 +184,7 @@ public class RedisConfig {
 La clase la llamamos RedisConfig y la anotamos con @Configuration para indicar a spring que esta clase debe ser inicializada dentro del contenedor de beans en un ámbito o contexto de configuración, en las variables host y port al llevar la anotación @Value le especificamos a spring que les de el valor de las propiedades que definimos anteriormente en el archivo application.properties.
 
 
-El método connectionFactory es el que se encargara de entablar la conexión a redis y el userRedisTemplate definiremos nuestro template con los tipos de dato con el que estaremos trabajando. Recordemos que redis nos permite guardar datos a través de clave-valor por lo tanto el objeto RedisTemplate necesita de 2 tipos de datos para realizar su cometido, “Long” hará referencia al tipo de dato para la clave mientras que “User” sera el tipo de dato del valor asociado a dicha clave.
+El método connectionFactory es el que se encargara de entablar la conexión a Redis y el userRedisTemplate definiremos nuestro template con los tipos de dato con el que estaremos trabajando. Recordemos que Redis nos permite guardar datos a través de clave-valor por lo tanto el objeto RedisTemplate necesita de 2 tipos de datos para realizar su cometido, “Long” hará referencia al tipo de dato para la clave mientras que “User” sera el tipo de dato del valor asociado a dicha clave.
 
 
 A continuación se elaborara la clase serivicio.
@@ -229,11 +233,10 @@ public class UserService {
     }
 ```
 
-La clase UserService es bastante sencilla, se le inyectan el userRedisTemplate, bean que definimos en la clase RedisConfig con el cual interactuaremos con redis y se inyecta userRepository que básicamente es un crud repository para la interacción con la base de datos mysql.
+La clase UserService es bastante sencilla, se le inyectan el userRedisTemplate, bean que definimos en la clase RedisConfig con el cual interactuaremos con Redis y se inyecta userRepository que básicamente es un crud repository para la interacción con la base de datos mysql.
 
 
-Esta clase nos ofrece 3 métodos, create que nos permite crear usuarios, y 2 métodos getUserById, el primero de ellos donde nosotros validamos que en redis este almacenado el usuario con el id que estamos buscando para retornarlo y de no ser así se busca en mysql para posteriormente almacenarlo en redis y retornarlo, el getUserbyId2 es muy similar solo que con la anotación @Cacheable especificamos el valor y cual es la key para dicho valor en este caso nuestra variable id lo cual almacena y busca automáticamente en redis sin tener que explícitamente indicarlo nosotros en código con en el primer ejemplo.
-
+Esta clase nos ofrece 3 métodos, create que nos permite crear usuarios, y 2 métodos getUserById, el primero de ellos donde nosotros validamos que en Redis este almacenado el usuario con el id que estamos buscando para retornarlo y de no ser así se busca en mysql para posteriormente almacenarlo en Redis y retornarlo, el getUserbyId2 es muy similar solo que con la anotación @Cacheable especificamos el valor y cual es la key para dicho valor en este caso nuestra variable id lo cual almacena y busca automáticamente en Redis sin tener que explícitamente indicarlo nosotros en código con en el primer ejemplo.
 
 
 ## Creacion de clase repository y controller
@@ -317,7 +320,11 @@ services:
         ports:    
             - '33060:3306'
     redis:
-        image: redis 
+        image: redis
+        ports:
+            - 6379:6379
+        expose:
+            - 6379
     spring-redis:
         image: spring-redis 
         environment: 
@@ -336,47 +343,70 @@ networks:
             name: red 
 ```
 
-En una terminal procedemos a ejecutar el siguiente comando para crear la red necesaria para la comunicación entre los diferentes servicios “docker network create red”.
+En una terminal procedemos a ejecutar el siguiente comando para crear la red necesaria para la comunicación entre los diferentes servicios:
+
+docker network create red
+
+Una vez teniendo todos nuestros archivos preparados, creada la imagen de nuestra aplicación Spring y la red en docker procederemos a abrir una terminal y posicionarnos en la carpeta raíz del proyecto, ejecutando la siguiente sentencia para inicializar todos los contenedores definidos en el docker-compose.yml:
+
+docker-compose up -d
+
+Una vez todos nuestros contenedores disponibles podemos utilizar la aplicación.
+
+Para la creación de algunos usuarios a traves de la herramienta “Postman” lanzaremos peticiones al siguiente endpoint:
+
+POST http://localhost:8080/user
 
 
+![captura de postman donde se realiza la cracion de un usuario](https://github.com/lerubiof/redis-spring/blob/main/images/Screenshot%201.png)
 
-Una vez teniendo todos nuestros archivos preparados y creada la imagen de nuestra aplicación spring y la red en docker procederemos a abrir una terminal y posicionarnos en la carpeta raíz del proyecto, ejecutando la siguiente sentencia “docker-compose up -d” para inicializar todos los contenedores definidos en el docker-compose.yml y ya podremos interactuar con la aplicación.
+En terminal ejecutamos el siguiente comando:
 
+docker excec –it Redis-Spring-Redis-1 bash
 
-Se realizaron algunas request para la creación de algunos usuarios.
+De esta forma logramos acceder al bash del contenedor donde esta alojado Redis e introducimos la siguiente sentencia para introducirnos al cliente de Redis:
 
+Redis-cli
 
-![captura de postman donde se realiza la cracion de un usuario](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%201.png)
+Una vez dentro del cliente ejecutamos la sentencia:
 
+keys *
 
+Con esto veremos la cantidad de claves de nuestros objetos guardados en Redis, de momento no tenemos ningún objeto almacenado.
 
-
-En terminal ejecutamos el siguiente comando “docker excec –it redis-spring-redis-1 bash” de esta forma logramos acceder al bash del contenedor donde esta alojado redis e introducimos la siguiente sentencia “redis-cli” para acceder al cliente de redis, una vez dentro del cliente ejecutamos la sentencia “keys *” para ver la cantidad de claves de nuestros objetos guardados en redis, de momento no tenemos ningún objeto almacenado en redis.
-
-
-![captura donde se consulta el listado vacio de keys en redis](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%202.png)
-
-
-
+![captura donde se consulta el listado vacio de keys en redis](https://github.com/lerubiof/redis-spring/blob/main/images/Screenshot%202.png)
 
 Procedemos a hacer el llamado del endpoint getById.
 
-
-![captura de postman donde se utiliza el endpoint de consulta](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%203.png)
-
+![captura de postman donde se utiliza el endpoint de consulta](https://github.com/lerubiof/redis-spring/blob/main/images/Screenshot%203.png)
 
 
+Revisamos Redis una vez más y podremos observar como este elemento que hemos buscado se encuentra ya almacenado en nuestra popular base de datos de cache.
+
+Primero utilizamos el comando “keys *” para ver cual clave guardo asociada a nuestro elemento, y con esa misma clave realizamos su extracción con el comando “get [key]”.
 
 
-Revisamos redis una vez mas y podremos observar como este elemento que hemos buscado se encuentra ya almacenado en nuestra popular base de datos de cache.
+![captura donde se consulta el listado de keys y el elemento almacenado](https://github.com/lerubiof/redis-spring/blob/main/images/Screenshot%204.png)
 
-Primero utilizamos el comando “keys *” para ver cual clave guardo asociada a nuestro elemento, y con esa misma clave realizamos la extracción de el con el comando “get [key]”.
-
-
-
-![captura donde se consulta el listado de keys y el elemento almacenado](https://github.com/lerubiof/redis-spring/blob/main/src/main/resources/static/Screenshot%204.png)
+En este ejemplo vimos como conectar nuestra aplicación Spring con MySQL, Redis, se utilizo Flayway para crear la tabla users para el ejemplo, vimos también como utilizar Redis para almacenar y extraer información de la popular base de datos en cache, se utilizo Docker para crear los contenedores de nuestra aplicación  y docker Compose para llevar una gestión mas sencilla de nuestros contenedores para el deploy de la aplicación.
 
 
+## Documentación
 
+https://Redis.io/docs/about/
+https://dev.mysql.com/doc/refman/8.3/en/introduction.html
+https://dev.Java/learn/getting-started/
+https://Spring.io/learn
+https://docs.docker.com/
+https://documentation.red-gate.com/flyway/quickstart-how-flyway-works
 
-En este ejemplo vimos como conectar nuestra aplicación spring con mysql, redis, se utilizo flyway para crear la tabla users para el ejemplo, vimos también como utilizar redis para almacenar y extraer información de la popular base de datos en cache, se utilizo docker para crear los contenedores de nuestra aplicación  y docker-compose para llevar una gestión mas sencilla de nuestros contenedores para el deploy de la aplicación.
+# Referencias
+
+https://aws.amazon.com/es/elasticache/what-is-Redis
+https://openwebinars.net/blog/que-es-mysql
+https://www.redhat.com/es/topics/containers/what-is-docker
+https://learn.microsoft.com/es-es/azure/ai-services/containers/docker-compose-recipe
+https://aws.amazon.com/es/what-is/Java
+https://www.ibm.com/mx-es/topics/Java-Spring-boot 
+
+ 
