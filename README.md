@@ -358,7 +358,7 @@ Para la creación de algunos usuarios a traves de la herramienta “Postman” l
 POST http://localhost:8080/user
 
 
-![captura de postman donde se realiza la cracion de un usuario](https://github.com/lerubiof/repos-images/blob/main/redis-spring/Screenshot%201.png)
+![captura de postman donde se realiza la cracion de un usuario](images/Screenshot%201.png)
 
 En terminal ejecutamos el siguiente comando:
 
@@ -374,39 +374,47 @@ keys *
 
 Con esto veremos la cantidad de claves de nuestros objetos guardados en Redis, de momento no tenemos ningún objeto almacenado.
 
-![captura donde se consulta el listado vacio de keys en redis](https://github.com/lerubiof/repos-images/blob/main/redis-spring/Screenshot%202.png)
+![captura donde se consulta el listado vacio de keys en redis](images/Screenshot%202.png)
 
 Procedemos a hacer el llamado del endpoint getById.
 
-![captura de postman donde se utiliza el endpoint de consulta](https://github.com/lerubiof/repos-images/blob/main/redis-spring/Screenshot%203.png)
-
+![captura de postman donde se utiliza el endpoint de consulta](images/Screenshot%203.png)
 
 Revisamos Redis una vez más y podremos observar como este elemento que hemos buscado se encuentra ya almacenado en nuestra popular base de datos de cache.
 
 Primero utilizamos el comando “keys *” para ver cual clave guardo asociada a nuestro elemento, y con esa misma clave realizamos su extracción con el comando “get [key]”.
 
-
-![captura donde se consulta el listado de keys y el elemento almacenado](https://github.com/lerubiof/repos-images/blob/main/redis-spring/Screenshot%204.png)
+![captura donde se consulta el listado de keys y el elemento almacenado](images/Screenshot%204.png)
 
 En este ejemplo vimos como conectar nuestra aplicación Spring con MySQL, Redis, se utilizo Flayway para crear la tabla users para el ejemplo, vimos también como utilizar Redis para almacenar y extraer información de la popular base de datos en cache, se utilizo Docker para crear los contenedores de nuestra aplicación  y docker Compose para llevar una gestión mas sencilla de nuestros contenedores para el deploy de la aplicación.
 
 
 ## Documentación
 
-https://Redis.io/docs/about/
+https://redis.io/docs/about/
+
 https://dev.mysql.com/doc/refman/8.3/en/introduction.html
-https://dev.Java/learn/getting-started/
-https://Spring.io/learn
+
+https://dev.java/learn/getting-started/
+
+https://spring.io/learn
+
 https://docs.docker.com/
+
 https://documentation.red-gate.com/flyway/quickstart-how-flyway-works
 
 # Referencias
 
-https://aws.amazon.com/es/elasticache/what-is-Redis
+https://aws.amazon.com/es/elasticache/what-is-redis
+
 https://openwebinars.net/blog/que-es-mysql
+
 https://www.redhat.com/es/topics/containers/what-is-docker
+
 https://learn.microsoft.com/es-es/azure/ai-services/containers/docker-compose-recipe
-https://aws.amazon.com/es/what-is/Java
-https://www.ibm.com/mx-es/topics/Java-Spring-boot 
+
+https://aws.amazon.com/es/what-is/java
+
+https://www.ibm.com/mx-es/topics/java-spring-boot 
 
  
