@@ -345,11 +345,15 @@ networks:
 
 En una terminal procedemos a ejecutar el siguiente comando para crear la red necesaria para la comunicación entre los diferentes servicios:
 
+```
 docker network create red
+```
 
 Una vez teniendo todos nuestros archivos preparados, creada la imagen de nuestra aplicación Spring y la red en docker procederemos a abrir una terminal y posicionarnos en la carpeta raíz del proyecto, ejecutando la siguiente sentencia para inicializar todos los contenedores definidos en el docker-compose.yml:
 
+```
 docker-compose up -d
+```
 
 Una vez todos nuestros contenedores disponibles podemos utilizar la aplicación.
 
@@ -362,15 +366,21 @@ POST http://localhost:8080/user
 
 En terminal ejecutamos el siguiente comando:
 
-docker excec –it Redis-Spring-Redis-1 bash
+```
+docker excec –it redis-spring-redis-1 bash
+```
 
 De esta forma logramos acceder al bash del contenedor donde esta alojado Redis e introducimos la siguiente sentencia para introducirnos al cliente de Redis:
 
-Redis-cli
+```
+redis-cli
+```
 
 Una vez dentro del cliente ejecutamos la sentencia:
 
+```
 keys *
+```
 
 Con esto veremos la cantidad de claves de nuestros objetos guardados en Redis, de momento no tenemos ningún objeto almacenado.
 
