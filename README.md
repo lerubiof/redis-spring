@@ -369,7 +369,7 @@ POST http://localhost:8080/user
 En la terminal ejecutamos el siguiente comando:
 
 ```
-docker excec –it redis-spring-redis-1 bash
+docker exec –it redis-spring-redis-1 bash
 ```
 
 De esta forma logramos acceder al bash del contenedor donde está alojado Redis e introducimos la siguiente sentencia para introducirnos al cliente de Redis:
