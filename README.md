@@ -400,6 +400,8 @@ Primero utilizamos el comando “keys *” para ver cuál clave guardo asociada 
 
 En este ejemplo vimos como conectar nuestra aplicación Spring con MySQL, Redis, se utilizó Flayway para crear la tabla users para el ejemplo, vimos también como utilizar Redis para almacenar y extraer información de la popular base de datos en cache, se utilizó Docker para crear los contenedores de nuestra aplicación  y Docker Compose para llevar una gestión más sencilla de nuestros contenedores para el deploy de la aplicación.
 
+## Video
+https://valtechcom-my.sharepoint.com/:v:/r/personal/luis_rubio_valtech_com/Documents/redis-spring.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=FYBRIe
 
 ## Documentación
 
